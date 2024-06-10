@@ -188,7 +188,7 @@ CREATE TABLE `comments` (
   `user_id` int(10) UNSIGNED NOT NULL,
   `product_id` int(10) UNSIGNED NOT NULL,
   `resources` text DEFAULT NULL,
-  `content` text NOT NULL,
+  `content` text DEFAULT NULL,
   `evaluate` int(11) NOT NULL DEFAULT 5,
   `create_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
