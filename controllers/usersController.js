@@ -84,11 +84,24 @@ const userControllers = {
 
     update: (req, res) => {
         if (req.file) req.body.thumbnail = generateLinkFiles(req.file);
-        userModels.updateUser(req.params.id, req.body, (err, data) => {
+        bcrypt.genSalt(saltRount, (err, salt) => {
             if (err) {
                 res.status(500).json(err);
             } else {
-                res.status(200).json(data);
+                bcrypt.hash(req.body.password, salt, (err, hastedPass) => {
+                    if (err) {
+                        res.status(500).json(err);
+                    } else {
+                        req.body.password = hastedPass;
+                        userModels.updateUser(req.params.id, req.body, (err, data) => {
+                            if (err) {
+                                res.status(500).json(err);
+                            } else {
+                                res.status(200).json(data);
+                            }
+                        });
+                    }
+                });
             }
         });
     },
